@@ -1,26 +1,32 @@
 l5 =[]
-#k=""
-data = {'abh':'ram','k2':{'k3':767,'k4':{'ram':[45,{'abhay':67}]}}}
-def get_all_key_value_pair(data,k):
+key=""
+count =0
+
+data = {'k1':'ram','k2':{'k3':767,'k4':{'k5':[45,{'k6':67}]}},'k7':(56,'avg',{'k8':['up',100]})}
+
+
+def get_all_key_value_pair(data, k, count):
+    p, c = (k, count)
     if type(data) == dict:
         all_keys = list(data.keys())
-        print(all_keys)
         for i in all_keys:
-            k = k+"[{}]".format(i)
-            print(k)
-            get_all_key_value_pair(data[i],k)
+            p = k + "[{}]".format(i)
+            c = count + 1
+            get_all_key_value_pair(data[i], p, c)
 
-    elif type(data) == list:
+    elif (type(data) == list) or (type(data) == tuple):
         for j in range(len(data)):
-            k=k+"[{}]".format(j)
-            print(k)
-            get_all_key_value_pair(data[j],k)
+            p = k + "[{}]".format(j)
+            c = count + 1
+            get_all_key_value_pair(data[j], p, c)
     else:
-        d={k:data}
-        k=""
+        d = {p: data}
+        p = ""
         l5.append(d)
-        print(l5)
-        print(k)
+        c = 0
 
-get_all_key_value_pair(data,k="")
-print(l5)
+
+
+get_all_key_value_pair(data,key,count)
+for i in l5:
+    print(i)
