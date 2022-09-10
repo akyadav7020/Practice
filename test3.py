@@ -1,49 +1,23 @@
 import re
-import requests
-from bs4 import BeautifulSoup as bs
-import json
-url="https://www.youtube.com/user/krishnaik06/videos"
-p=requests.get(url)
-#print(requests.get(url).text)
-s = bs(p.text,"html.parser")
-#print(s)
-data = re.search("var ytInitialData = ({.*});",str(s.prettify())).group(1)
-#print(data)
-json_data = json.loads(data)
-#print((json_data).keys())
-#print(json_data['contents'])
-#print((json_data['header']['c4TabbedHeaderRenderer']))
-#ch_name = json_data['header']['c4TabbedHeaderRenderer']['title']
-#print(ch_name)
-#print(type(json_data))
-data = {'abh':'ram','k2':{'k3':767,'k4':{'ram':[45,{'abhay':67}]}}}
-input_value =list(data.keys())
-#print(input_value)
+s = '''abhay  56 abhayyadav yadavabhay 5.
+<h1> sdhdfk dsfjhsd sdhf dskhf skfdh </h1>
+dfsd sdhf PV SINDHU kfhs skdfh skf  dskf sdkf'''
 
-l5 =[]
-k=""
-count=0
-def get_all_key_value_pair(data, k, count):
-    p, c = (k, count)
-    if type(data) == dict:
-        all_keys = list(data.keys())
-        for i in all_keys:
-            p = k + "[{}]".format(i)
-            c = count + 1
-            get_all_key_value_pair(data[i], p, c)
+#pattern = "<html>"
+#pattern = "</html>"d
+#  ., \w, \d, ? , \s, ^, \$, \A, \Z, \d\d, \d{2}, \S{2}, \S{2,6}, \S{3,}, S*, d+
+pattern = "\<h1>(.*?)</h1>"
+p = re.findall(pattern,s)
 
-    elif (type(data) == list) or (type(data) == tuple):
-        for j in range(len(data)):
-            p = k + "[{}]".format(j)
-            c = count + 1
-            get_all_key_value_pair(data[j], p, c)
-    else:
-        d = {p: data}
-        p = ""
-        #if(c<15):
-        l5.append(d)
-        c = 0
 
-get_all_key_value_pair(json_data,k,count)
-for i in l5:
-    print(i)
+print(p)
+
+"""data = re.search(r"var ytInitialPlayerResponse = ({.*?});",str(s.prettify())).group(1)
+[videoDetails][videoId]': 'HZ9MUzCRlzI'}
+{'[videoDetails][title]': 'Implementing Machine Learninng Pipelines USsing Sklearn And Python'}
+{'[videoDetails][lengthSeconds]': '1606'}
+[videoDetails][viewCount]': '8512'}
+{'[microformat][playerMicroformatRenderer][publishDate]': '2022-09-01'}
+{'[microformat][playerMicroformatRenderer][uploadDate]': '2022-09-01'}
+Shoer discription of video"""
+
